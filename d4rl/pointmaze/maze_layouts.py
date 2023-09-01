@@ -86,6 +86,49 @@ HARD_EXP_MAZE = \
         "#OOOO#OOOO#OOOO#OOOG#\\"+\
         "#####################"
 
+SCRL_20_GO_LEFT_V0 = \
+        "####################\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "######OOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "######OOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "####################"
+
+SCRL_20_GO_LEFT_V1 = \
+        "####################\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "######OOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "######OOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "#OOOOOOOOOOOOOOOOOO#\\"+\
+        "####################"
 
 HARD_EXP_MAZE_V2 = \
         "#####################\\"+\

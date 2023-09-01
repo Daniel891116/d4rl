@@ -9,7 +9,6 @@ import argparse
 import os
 import tqdm
 
-
 def reset_data():
     return {'states': [],
             'actions': [],
@@ -80,6 +79,8 @@ def main():
     parser.add_argument('--min_traj_len', type=int, default=int(20), help='Min number of samples per trajectory')
     parser.add_argument('--rand_maze_size', type=int, default=int(20), help='Size of generate maze')
     parser.add_argument('--batch_idx', type=int, default=int(-1), help='(Optional) Index of generated data batch')
+    parser.add_argument('--maze', type=str, default='my_Maze', help='Maze') # fix line 137 problem
+    parser.add_argument('--clip_deg', type=float, default=0.0, help='clip degree range') 
     args = parser.parse_args()
     if args.agent_centric and not args.save_images:
         raise ValueError("Need to save images for agent-centric dataset")
@@ -109,6 +110,8 @@ def main():
             act = act + np.random.randn(*act.shape)*0.5
 
         act = np.clip(act, -1.0, 1.0)
+        act = act_postprocess(act, args.clip_deg)
+
         if ts >= max_episode_steps:
             done = True
         append_data(data, s, act, env.render(mode='rgb_array'), #, camera_name='birdview'),
@@ -166,6 +169,17 @@ def save_data(args, data, idx):
 
     f.close()
 
+def act_postprocess(act: np.ndarray, clip_deg)->np.ndarray:
+    # calculate the angle of action and filter the action in certain angle range
+    if act[1] < 0:
+        angle = np.arctan2(act[0], act[1]) * 180 / np.pi # [note] action(y, x)
+        if abs(180 - abs(angle)) <= clip_deg:
+            if act[0] >= 0:
+                act = np.array([np.sin((180 - clip_deg)/180.0*np.pi), np.cos((180 - clip_deg)/180.0*np.pi)])
+            else:
+                act = np.array([np.sin((180 + clip_deg)/180.0*np.pi), np.cos((180 + clip_deg)/180.0*np.pi)])
+
+    return act
 
 if __name__ == "__main__":
     main()

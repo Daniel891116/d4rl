@@ -1,5 +1,5 @@
 from .maze_layouts import OPEN, U_MAZE, MEDIUM_MAZE, LARGE_MAZE, U_MAZE_EVAL, MEDIUM_MAZE_EVAL, LARGE_MAZE_EVAL, \
-            HARD_EXP_MAZE, HARD_EXP_MAZE_V2, rand_layout
+            HARD_EXP_MAZE, HARD_EXP_MAZE_V2, rand_layout, SCRL_20_GO_LEFT_V0, SCRL_20_GO_LEFT_V1
 from .maze_model import MazeEnv
 from .semantic_maze_layouts import SEMANTIC_MAZE_LAYOUTS, semantic_layout2str
 
@@ -323,6 +323,95 @@ register(
     }
 )
 
+register(
+    id='maze2d-SCRL2020-render-v0',
+    entry_point='d4rl.pointmaze:MazeEnv',
+    max_episode_steps=800,
+    kwargs={
+        'maze_spec': SCRL_20_GO_LEFT_V0,
+        'agent_centric_view': False,
+        'reward_type': 'dense',
+        'reset_target': False,
+        'ref_min_score': 4.83,
+        'ref_max_score': 191.99,
+        'dataset_url':'http://maze2d-hardexpv2-sparse.hdf5'
+    }
+)
+
+register(
+    id='maze2d-SCRL2020-dense-v0',
+    entry_point='d4rl.pointmaze:MazeEnv',
+    max_episode_steps=800,
+    kwargs={
+        'maze_spec': SCRL_20_GO_LEFT_V0,
+        'agent_centric_view': True,
+        'reward_type': 'dense',
+        'reset_target': False,
+        'ref_min_score': 4.83,
+        'ref_max_score': 191.99,
+        'dataset_url':'http://maze2d-hardexpv2-sparse.hdf5'
+    }
+)
+
+register(
+    id='maze2d-SCRL2020-sparse-v0',
+    entry_point='d4rl.pointmaze:MazeEnv',
+    max_episode_steps=800,
+    kwargs={
+        'maze_spec': SCRL_20_GO_LEFT_V0,
+        'agent_centric_view': True,
+        'reward_type': 'sparse',
+        'reset_target': False,
+        'ref_min_score': 4.83,
+        'ref_max_score': 191.99,
+        'dataset_url':'http://maze2d-hardexpv2-sparse.hdf5'
+    }
+)
+
+register(
+    id='maze2d-SCRL2020-render-v1',
+    entry_point='d4rl.pointmaze:MazeEnv',
+    max_episode_steps=800,
+    kwargs={
+        'maze_spec': SCRL_20_GO_LEFT_V1,
+        'agent_centric_view': False,
+        'reward_type': 'dense',
+        'reset_target': False,
+        'ref_min_score': 4.83,
+        'ref_max_score': 191.99,
+        'dataset_url':'http://maze2d-hardexpv2-sparse.hdf5'
+    }
+)
+
+register(
+    id='maze2d-SCRL2020-dense-v1',
+    entry_point='d4rl.pointmaze:MazeEnv',
+    max_episode_steps=800,
+    kwargs={
+        'maze_spec': SCRL_20_GO_LEFT_V1,
+        'agent_centric_view': True,
+        'reward_type': 'dense',
+        'reset_target': False,
+        'ref_min_score': 4.83,
+        'ref_max_score': 191.99,
+        'dataset_url':'http://maze2d-hardexpv2-sparse.hdf5'
+    }
+)
+
+register(
+    id='maze2d-SCRL2020-sparse-v1',
+    entry_point='d4rl.pointmaze:MazeEnv',
+    max_episode_steps=800,
+    kwargs={
+        'maze_spec': SCRL_20_GO_LEFT_V1,
+        'agent_centric_view': True,
+        'reward_type': 'sparse',
+        'reset_target': False,
+        'ref_min_score': 4.83,
+        'ref_max_score': 191.99,
+        'dataset_url':'http://maze2d-hardexpv2-sparse.hdf5'
+    }
+)
 
 ##################### SEMANTIC MAZE LAYOUTS #############
 register(

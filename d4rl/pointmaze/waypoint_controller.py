@@ -100,16 +100,26 @@ if __name__ == "__main__":
     print(q_iteration.__file__)
     TEST_MAZE = \
             "######\\"+\
-            "#OOOO#\\"+\
+            "#O#OO#\\"+\
             "#O##O#\\"+\
             "#OOOO#\\"+\
             "######"
     controller = WaypointController(TEST_MAZE)
     start = np.array((1,1), dtype=np.float32)
-    target = np.array((4,3), dtype=np.float32)
-    act, done = controller.get_action(start, target)
+    target = np.array((1,3), dtype=np.float32)
+    # act, done = controller.get_action(start, target)
+
+    act, done = controller.get_action(start, 1, target)
+
+    # >>> modified part
     print('wpt:', controller._waypoints)
     print(act, done)
-    import pdb; pdb.set_trace()
+    for wp in controller._waypoints:
+        act, done = controller.get_action(start, 1, wp)
+        print(act, done)
+        start = wp
+    # <<< modified part
+
+    # import pdb; pdb.set_trace()
     pass
 

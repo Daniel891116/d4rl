@@ -3,7 +3,7 @@ import sys
 import numpy as np
 
 import d4rl.locomotion
-# import d4rl.hand_manipulation_suite
+import d4rl.hand_manipulation_suite
 import d4rl.pointmaze
 import d4rl.gym_minigrid
 import d4rl.gym_mujoco
@@ -20,12 +20,12 @@ except ImportError as e:
         print(_ERROR_MESSAGE % 'Flow', file=sys.stderr)
         print(e, file=sys.stderr)
 
-try:
-    import d4rl.kitchen
-except ImportError as e:
-    if not SUPPRESS_MESSAGES:
-        print(_ERROR_MESSAGE % 'FrankaKitchen', file=sys.stderr)
-        print(e, file=sys.stderr)
+# try:
+#     import d4rl.kitchen
+# except ImportError as e:
+#     if not SUPPRESS_MESSAGES:
+#         print(_ERROR_MESSAGE % 'FrankaKitchen', file=sys.stderr)
+#         print(e, file=sys.stderr)
 
 try:
     import d4rl.carla
