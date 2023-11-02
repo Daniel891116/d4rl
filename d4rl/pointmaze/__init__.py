@@ -1,5 +1,10 @@
 from .maze_layouts import OPEN, U_MAZE, MEDIUM_MAZE, LARGE_MAZE, U_MAZE_EVAL, MEDIUM_MAZE_EVAL, LARGE_MAZE_EVAL, \
-            HARD_EXP_MAZE, HARD_EXP_MAZE_V2, rand_layout, SCRL_20_GO_LEFT_V0, SCRL_20_GO_LEFT_V1
+            HARD_EXP_MAZE, HARD_EXP_MAZE_V2, rand_layout, \
+            SCRL_20_TEST_V0,\
+            SCRL_20_GO_LEFT_V0, SCRL_20_GO_LEFT_V1, SCRL_20_GO_LEFT_V2,\
+            SCRL_20_GO_RIGHT_V0,\
+            SCRL_20_GO_UP_V0,\
+            SCRL_20_GO_DOWN_V0
 from .maze_model import MazeEnv
 from .semantic_maze_layouts import SEMANTIC_MAZE_LAYOUTS, semantic_layout2str
 
@@ -277,6 +282,22 @@ register(
 
 
 register(
+    id='maze2d-randMaze0S30-ac-render-v0',
+    entry_point='d4rl.pointmaze:MazeEnv',
+    max_episode_steps=800,
+    kwargs={
+        'maze_spec': rand_layout(seed=0, size=30),
+        'agent_centric_view': False,
+        'reward_type': 'sparse',
+        'reset_target': False,
+        'ref_min_score': 4.83,
+        'ref_max_score': 191.99,
+        'dataset_url':'http://maze2d-hardexpv2-sparse.hdf5'
+    }
+)
+
+
+register(
     id='maze2d-randMaze0S40-ac-v0',
     entry_point='d4rl.pointmaze:MazeEnv',
     max_episode_steps=800,
@@ -364,7 +385,7 @@ register(
         'reset_target': False,
         'ref_min_score': 4.83,
         'ref_max_score': 191.99,
-        'dataset_url':'http://maze2d-hardexpv2-sparse.hdf5'
+        # 'dataset_url':'http://maze2d-hardexpv2-sparse.hdf5'
     }
 )
 
@@ -373,8 +394,23 @@ register(
     entry_point='d4rl.pointmaze:MazeEnv',
     max_episode_steps=800,
     kwargs={
-        'maze_spec': SCRL_20_GO_LEFT_V1,
+        'maze_spec': SCRL_20_GO_LEFT_V0,
         'agent_centric_view': False,
+        'reward_type': 'dense',
+        'reset_target': False,
+        'ref_min_score': 4.83,
+        'ref_max_score': 191.99,
+        # 'dataset_url':'http://maze2d-hardexpv2-sparse.hdf5'
+    }
+)
+
+register(
+    id='maze2d-SCRL2020-dense-v1',
+    entry_point='d4rl.pointmaze:MazeEnv',
+    max_episode_steps=800,
+    kwargs={
+        'maze_spec': SCRL_20_GO_LEFT_V0,
+        'agent_centric_view': True,
         'reward_type': 'dense',
         'reset_target': False,
         'ref_min_score': 4.83,
@@ -384,7 +420,7 @@ register(
 )
 
 register(
-    id='maze2d-SCRL2020-dense-v1',
+    id='maze2d-SCRL2020-dense-v2',
     entry_point='d4rl.pointmaze:MazeEnv',
     max_episode_steps=800,
     kwargs={
@@ -399,11 +435,86 @@ register(
 )
 
 register(
-    id='maze2d-SCRL2020-sparse-v1',
+    id='maze2d-SCRL2020-render-v2',
     entry_point='d4rl.pointmaze:MazeEnv',
     max_episode_steps=800,
     kwargs={
         'maze_spec': SCRL_20_GO_LEFT_V1,
+        'agent_centric_view': False,
+        'reward_type': 'dense',
+        'reset_target': False,
+        'ref_min_score': 4.83,
+        'ref_max_score': 191.99,
+        'dataset_url':'http://maze2d-hardexpv2-sparse.hdf5'
+    }
+)
+
+register(
+    id='maze2d-SCRL2020-dense-v3',
+    entry_point='d4rl.pointmaze:MazeEnv',
+    max_episode_steps=800,
+    kwargs={
+        'maze_spec': SCRL_20_GO_LEFT_V2,
+        'agent_centric_view': True,
+        'reward_type': 'dense',
+        'reset_target': False,
+        'ref_min_score': 4.83,
+        'ref_max_score': 191.99,
+        'dataset_url':'http://maze2d-hardexpv2-sparse.hdf5'
+    }
+)
+
+register(
+    id='maze2d-SCRL2020-render-v3',
+    entry_point='d4rl.pointmaze:MazeEnv',
+    max_episode_steps=800,
+    kwargs={
+        'maze_spec': SCRL_20_GO_LEFT_V2,
+        'agent_centric_view': False,
+        'reward_type': 'dense',
+        'reset_target': False,
+        'ref_min_score': 4.83,
+        'ref_max_score': 191.99,
+        'dataset_url':'http://maze2d-hardexpv2-sparse.hdf5'
+    }
+)
+
+register(
+    id='maze2d-SCRL2020-sparse-go-right-v0',
+    entry_point='d4rl.pointmaze:MazeEnv',
+    max_episode_steps=800,
+    kwargs={
+        'maze_spec': SCRL_20_GO_RIGHT_V0,
+        'agent_centric_view': True,
+        'reward_type': 'sparse',
+        'reset_target': False,
+        'ref_min_score': 4.83,
+        'ref_max_score': 191.99,
+        'dataset_url':'http://maze2d-hardexpv2-sparse.hdf5'
+    }
+)
+
+register(
+    id='maze2d-SCRL2020-sparse-go-up-v0',
+    entry_point='d4rl.pointmaze:MazeEnv',
+    max_episode_steps=800,
+    kwargs={
+        'maze_spec': SCRL_20_GO_UP_V0,
+        'agent_centric_view': True,
+        'reward_type': 'sparse',
+        'reset_target': False,
+        'ref_min_score': 4.83,
+        'ref_max_score': 191.99,
+        'dataset_url':'http://maze2d-hardexpv2-sparse.hdf5'
+    }
+)
+
+register(
+    id='maze2d-SCRL2020-sparse-go-down-v0',
+    entry_point='d4rl.pointmaze:MazeEnv',
+    max_episode_steps=800,
+    kwargs={
+        'maze_spec': SCRL_20_GO_DOWN_V0,
         'agent_centric_view': True,
         'reward_type': 'sparse',
         'reset_target': False,

@@ -9,6 +9,9 @@ import argparse
 import os
 import tqdm
 
+from moviepy.editor import ImageClip, concatenate_videoclips
+import matplotlib.pyplot as plt
+
 def reset_data():
     return {'states': [],
             'actions': [],
@@ -52,6 +55,29 @@ def reset_env(env, agent_centric=False):
         [env.render(mode='rgb_array') for _ in range(100)]    # so that camera can catch up with agent
     return s
 
+def add_info(fig, ax, image: np.ndarray, action: np.ndarray):
+    ax.clear()
+    # ax.set_ylim(0, 32)
+    ax.set_title(f"action=({action[1]:.4f},{action[0]:.4f})")
+    _x = np.linspace(16, 16 + action[1]*2.0, 2)
+    _y = np.linspace(16, 16 - action[0]*2.0, 2) # invert action because the y-axis is inverse
+    ax.imshow(image[:, ::-1, :])
+    ax.plot(_x, _y, linewidth=1, c='red')
+    fig.canvas.draw()
+    return np.array(fig.canvas.renderer.buffer_rgba())
+
+def save_info_video(images, actions, idx):
+    fig, ax = plt.subplots(figsize=(8, 8))
+    # plt.gca().invert_yaxis()
+    # ax.invert_yaxis()
+    ax.set_aspect("equal")
+    ax.set_title("action distribution")
+    ax.set_xlabel("x")
+    ax.set_ylabel("y")
+    clips = [ImageClip(add_info(fig, ax, m, a)).set_duration(1/24.) for m, a in zip(images, actions)]
+
+    concat_clip = concatenate_videoclips(clips, method="compose")
+    concat_clip.write_videofile("seq_{}_ac.mp4".format(idx), fps=5)
 
 def save_video(file_name, frames, fps=20, video_format='mp4'):
     import skvideo.io
@@ -92,6 +118,7 @@ def main():
 
     data = reset_data()
     ts, cnt = 0, 0
+    
     for tt in tqdm.tqdm(range(args.num_samples)):
         position = s[0:2]
         velocity = s[2:4]
@@ -123,6 +150,8 @@ def main():
         if done:
             if len(data['actions']) > args.min_traj_len:
                 save_data(args, data, cnt)
+                # import ipdb
+                # ipdb.set_trace()
                 cnt += 1
             data = reset_data()
             env, controller = sample_env_and_controller(args)
@@ -137,6 +166,7 @@ def main():
 
 def save_data(args, data, idx):
     # save_video("seq_{}_ac.mp4".format(idx), data['images'])
+    # save_info_video(data['images'], data['actions'], idx)
     dir_name = 'maze2d-%s-noisy' % args.maze if args.noisy else 'maze2d-%s' % args.maze
     if args.batch_idx >= 0:
         dir_name = os.path.join(dir_name, "batch_{}".format(args.batch_idx))
@@ -173,11 +203,12 @@ def act_postprocess(act: np.ndarray, clip_deg)->np.ndarray:
     # calculate the angle of action and filter the action in certain angle range
     if act[1] < 0:
         angle = np.arctan2(act[0], act[1]) * 180 / np.pi # [note] action(y, x)
+        length = np.linalg.norm(act)
         if abs(180 - abs(angle)) <= clip_deg:
             if act[0] >= 0:
-                act = np.array([np.sin((180 - clip_deg)/180.0*np.pi), np.cos((180 - clip_deg)/180.0*np.pi)])
+                act = np.array([length * np.sin((180 - clip_deg)/180.0*np.pi), length * np.cos((180 - clip_deg)/180.0*np.pi)])
             else:
-                act = np.array([np.sin((180 + clip_deg)/180.0*np.pi), np.cos((180 + clip_deg)/180.0*np.pi)])
+                act = np.array([length * np.sin((180 + clip_deg)/180.0*np.pi), length * np.cos((180 + clip_deg)/180.0*np.pi)])
 
     return act
 
