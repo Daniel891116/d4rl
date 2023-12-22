@@ -133,12 +133,12 @@ class MazeEnv(mujoco_env.MujocoEnv, utils.EzPickle, offline_env.OfflineEnv):
         ob = self._get_obs()
         if self.reward_type == 'sparse':
             # SCRL modified: reward to step penalty
-            reward = -1
-            # reward = 1.0 if np.linalg.norm(ob[0:2] - self._target) <= 2.0 else 0.0
+            # reward = -1
+            reward = 1.0 if np.linalg.norm(ob[0:2] - self._target) <= 2.0 else 0.0
         elif self.reward_type == 'dense':
             # SCRL modified: reward to step penalty
-            reward = -1
-            # reward = np.exp(-np.linalg.norm(ob[0:2] - self._target))
+            # reward = -1
+            reward = np.exp(-np.linalg.norm(ob[0:2] - self._target))
         else:
             raise ValueError('Unknown reward type %s' % self.reward_type)
 
